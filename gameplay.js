@@ -19,11 +19,23 @@ function showGameboard() {
     }
 }
 
-function showGameInProgress() {
-    var gameDiv = document.getElementById("gameboardDiv");
-    gameDiv.innerHTML = genGameboard(75);
-    placeGamepieces("currentLocation");
-
+function startNewGame() {
+    for (var x in whiteTeam){
+        var obj = whiteTeam[x];
+        obj["currentLocation"] = obj["startingLocation"];
+        obj["status"] = "active";
+    }
+    for (var x in blackTeam){
+        var obj = blackTeam[x];
+        obj["currentLocation"] = obj["startingLocation"];
+        obj["status"] = "active";
+    }
+    game.nextToMove = "white";
+    game.selectedPiece = null;
+    game.moveDescription = "";
+    game.check = false;
+    game.checkMate = false;
+    showGameboard();
 }
 
 function genGameboard(size) {
