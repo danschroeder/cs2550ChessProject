@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<!--
+    Author     : danielschroeder
+    UVID       : 10520096
+-->
+<html lang="en-US">
+    <head>
+        <link rel="stylesheet" href="chessstyles.css"/> 
+        <title>Chess Rules</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <p>Daniel Schroeder<br>
+        UVID: 10520096</p>
+        <h2>Preliminary Software Design</h2>
+        <p>I decided to go with chess because my wife doesn't really know how to play and wants to learn, and I figure I can teach her as my project progresses. The design I am thinking of goes something like this... I will need to have a function for each individual type of gamepiece that allows users to only make legal moves for that piece as well as handling errors like MoveRook() or MoveKing() etc. I will need a function that upon every move checks to see if either king is put into check as well as prevents you from putting your own king into check something like kingCheck(), in that same function I will likely also have code to end the game if a checkmate is reached. There is also a special move the king and rook can make given a special set of circumstances that I'll call something like kingRookSwap(). I will also need a function to handle the capture of a gamepiece altough I may handle that in the same function I use for when a player makes a move, we will see if it makes sense... that may be straying a bit and make the function less universal and more confusing. Those are the big NEEDED functions that initially come to mind.</p>
+        <p>If I have the time once things are working I would also like to put in a function that will reset the game board as well as one that keeps track of players captured gamepieces.</p>
+        <h2>Model</h2>
+        <h4>Constants</h4>
+        <b>REQ_PLAYERS</b>
+        " the required number of players for the game is fixed (2)"
+        <br>
+        <h4>Objects</h4>
+        <table>
+<tbody><tr><td style="border-bottom: thin solid gray"><b>GamePiece</b></td><td>&nbsp;</td>
+</tr><tr><td>name</td><td>String indicating team/role such as "whiteKing"</td></tr>
+<tr><td>icon</td><td>String that stores the html image code for the piece</td></tr>
+<tr><td>status</td><td>String that is either "active" or "captured"</td></tr>
+<tr><td>currentLocation</td><td>String displaying the current location on the board (changes)</td></tr>
+<tr><td>startingLocation</td><td>String storing the starting location on the board (doesn't change)</td></tr>
+</tbody></table>
+        <br>
+         <table>
+<tbody><tr><td style="border-bottom: thin solid gray"><b>WhiteTeam & BlackTeam</b></td><td>&nbsp;</td>
+</tr><tr><td>King</td><td>[gamepiece Object]</td></tr>
+<tr><td>Queen</td><td>[gamepiece Object]</td></tr>
+<tr><td>Rook1</td><td>[gamepiece Object]</td></tr>
+<tr><td>Rook2</td><td>[gamepiece Object]</td></tr>
+<tr><td>Bishop1</td><td>[gamepiece Object]</td></tr>
+<tr><td>Bishop2</td><td>[gamepiece Object]</td></tr>
+<tr><td>Knight1</td><td>[gamepiece Object]</td></tr>
+<tr><td>Knight2</td><td>[gamepiece Object]</td></tr>
+<tr><td>Pawns 1-8</td><td>[gamepiece Object]</td></tr>
+</tbody></table>
+        <br>
+        <table>
+<tbody><tr><td style="border-bottom: thin solid gray"><b>Game</b></td><td>&nbsp;</td>
+</tr><tr><td>nextToMove</td><td>String either 'white' or 'black'</td></tr>
+<tr><td>whiteMovesTotal</td><td>Number of total moves taken</td></tr>
+<tr><td>blackMovesTotal</td><td>Number of total moves taken</td></tr>
+<tr><td>moveDescription</td><td>String describing most recent movement</td></tr>
+<tr><td>check</td><td>Boolean value true only when a king is in check</td></tr>
+<tr><td>checkMate</td><td>Boolean value true only when a king is in check mate</td></tr>
+</tbody></table>
+        <h1>Dan's Fantastic Chess Game</h1>
+        <hr>
+        <h2>Rules</h2>
+        <div>
+            <h3>Objective</h3>
+            <p>The goal of the game is to checkmate the other king. This is done by putting the opponents king in a position to be captured (referred to as "in check"), when the opponents king has no means of escape it is checkmate and the game is over.</p>
+            <hr>
+            <h3>Initial Setup and Gameplay</h3>
+            <p>The game is initially set up with the game pieces in positions seen in the image below.</p>
+            <img src="images/initialsetup.png" alt="Initial Setup" style="width:200px;height:200px;padding-right: 15px">
+            <p>Typically the player using the white pieces is the first to move but it really doesn't matter all that much unless you are one of those that lives, breathes, and bleeds chess. Players then alternate turns and attempt move their game pieces in such a way that it results in a checkmate position. Players can capture an opponents piece by moving their game piece into a space that is occupied by an opposing game piece. This helps to make the road to checkmate easier.</p>
+            <hr> 
+            <h3>Game Pieces Capture & Movement Regulations</h3>
+            <table id="gamepieces">
+                <tr>
+                    <th>Game Piece</th>
+                    <th>Emblems</th>
+                    <th>Quantity (Per Side)</th>
+                    <th>Description of Movement Pattern</th>
+                </tr>
+                <tr>
+                    <td>King</td>
+                    <td><img src="images/gamepieces/black/king.png" alt="gamepiece"><img src="images/gamepieces/white/king.png" alt="gamepiece"></td>
+                    <td>1</td>
+                    <td>Can move/capture 1 space at a time either forward, backward, or to the side.</td>
+                </tr>
+                <tr>
+                    <td>Queen</td>
+                    <td><img src="images/gamepieces/black/queen.png" alt="gamepiece"><img src="images/gamepieces/white/queen.png" alt="gamepiece"></td>
+                    <td>1</td>
+                    <td>Can move/capture any number of spaces in a straight line either forward, backward, diagonally, or to the side.</td>
+                </tr>
+                <tr>
+                    <td>Rook</td>
+                    <td><img src="images/gamepieces/black/rook.png" alt="gamepiece"><img src="images/gamepieces/white/rook.png" alt="gamepiece"></td>
+                    <td>2</td>
+                    <td>Can move/capture any number of spaces in a straight line either forward, backward, or to the side.</td>
+                </tr>
+                <tr>
+                    <td>Bishop</td>
+                    <td><img src="images/gamepieces/black/bishop.png" alt="gamepiece"><img src="images/gamepieces/white/bishop.png" alt="gamepiece"></td>
+                    <td>2</td>
+                    <td>Can move/capture any number of spaces in a straight line in a diagonal direction only.</td>
+                </tr>
+                <tr>
+                    <td>Knight</td>
+                    <td><img src="images/gamepieces/black/knight.png" alt="gamepiece"><img src="images/gamepieces/white/knight.png" alt="gamepiece"></td>
+                    <td>2</td>
+                    <td>Can move/capture 3 spaces in a straight line and then must move 1 space to either the left or right (an L-shape) either forward, backward, or to the side.</td>
+                </tr>
+                <tr>
+                    <td>Pawn</td>
+                    <td><img src="images/gamepieces/black/pawn.png" alt="gamepiece"><img src="images/gamepieces/white/pawn.png" alt="gamepiece"></td>
+                    <td>8</td>
+                    <td>Can move 1 space forward and captures 1 space diagonally. Can optionally move 2 spaces forward ONLY when moved from its starting position.</td>
+                </tr>
+            </table>
+            <p>Honestly this is a pretty high-level description and if you have never heard of chess you will need more than this but this is a programming class and not a chess class...</p>
+            <p>So if you need more info click <a href="http://lmgtfy.com/?q=How+to+play+chess" target="_blank">HERE</a></p>
+            <p>If you are ready to play click <a href="chess.html" target="_blank">HERE</a></p>
+        </div>
+    </body>
+</html>

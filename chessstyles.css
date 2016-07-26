@@ -1,0 +1,84 @@
+
+/* 
+    Author     : danielschroeder
+    UVID       : 10520096
+*/
+
+.tan {background-color: tan; }
+.brown {background-color: brown; }
+div#gameboardDiv{
+    
+}
+div#whiteTeam{
+    float: right;
+}
+div#blackTeam{
+    float: left;
+}
+div#gameStats{
+    float: bottom;
+    text-align: center;
+}
+
+table#gameboard {
+    overflow: hidden;
+    width: auto;
+    border: 1px solid black; 
+    border-collapse: collapse;
+    padding: 5px;
+    text-align: center;
+    
+}
+table#gameboard tr{
+    border: 1px solid black;
+    padding: 5px;
+}
+table#gameboard td{
+    border: 1px solid black;
+    padding: 5px;
+/*    height: 75px;
+    width: 75px;*/
+}
+/*.path{
+    border: 1px solid black;
+    padding: 5px;
+    hover:
+    opacity: 0.3;
+   height: 75px;
+    width: 75px;
+}*/
+/*            table#gameboard tr:nth-child(odd) td:nth-child(odd){
+                background-color: tan;
+            }
+            table#gameboard tr:nth-child(odd) td:nth-child(even){
+                background-color: brown;
+            }
+            table#gameboard tr:nth-child(even) td:nth-child(odd){
+                background-color: brown;
+            }
+            table#gameboard tr:nth-child(even) td:nth-child(even){
+                background-color: tan;
+            }*/
+
+/*            table#gamepieces {
+                border: 1px solid black;
+                border-collapse: collapse;
+                padding: 5px;
+            }
+            table#gamepieces th{
+                border: 1px solid black;
+                
+                padding: 5px;
+            }
+            table#gamepieces tr{
+                border: 1px solid black;
+               
+                padding: 5px;
+            }
+            table#gamepieces td{
+                border: 1px solid black;
+                
+                padding: 5px;
+            }*/
+
+
