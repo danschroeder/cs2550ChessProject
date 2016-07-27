@@ -9,10 +9,18 @@
         <title>Chess Rules</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="gameplay.js"></script>
     </head>
-    <body>
+    <body onload="showDiv(event, 'gameRules')">
         <p>Daniel Schroeder<br>
         UVID: 10520096</p>
+        <ul class = "tab" id="gameNavBar">
+            <li><a  class="tablinks" href="#design" onclick="showDiv(event, 'gameDesign')">Design</a></li>
+            <li><a  class="tablinks" href="#rules" onclick="showDiv(event, 'gameRules')">Rules</a></li>
+            <li><a  class="tablinks" href="#login" onclick="showDiv(event, 'userLogin')">Login</a></li>
+        </ul>
+        <div id="gameDesign" class="tabcontent">
+        
         <h2>Preliminary Software Design</h2>
         <p>I decided to go with chess because my wife doesn't really know how to play and wants to learn, and I figure I can teach her as my project progresses. The design I am thinking of goes something like this... I will need to have a function for each individual type of gamepiece that allows users to only make legal moves for that piece as well as handling errors like MoveRook() or MoveKing() etc. I will need a function that upon every move checks to see if either king is put into check as well as prevents you from putting your own king into check something like kingCheck(), in that same function I will likely also have code to end the game if a checkmate is reached. There is also a special move the king and rook can make given a special set of circumstances that I'll call something like kingRookSwap(). I will also need a function to handle the capture of a gamepiece altough I may handle that in the same function I use for when a player makes a move, we will see if it makes sense... that may be straying a bit and make the function less universal and more confusing. Those are the big NEEDED functions that initially come to mind.</p>
         <p>If I have the time once things are working I would also like to put in a function that will reset the game board as well as one that keeps track of players captured gamepieces.</p>
@@ -53,9 +61,14 @@
 <tr><td>check</td><td>Boolean value true only when a king is in check</td></tr>
 <tr><td>checkMate</td><td>Boolean value true only when a king is in check mate</td></tr>
 </tbody></table>
+        </div>
+        <div id="gameRules" class="tabcontent">
         <h1>Dan's Fantastic Chess Game</h1>
         <hr>
         <h2>Rules</h2>
+        <div>
+            <p>Honestly this is a pretty high-level description and if you have never heard of chess you will need more than this but this is a programming class and not a chess class... <br>So if you need more info click <a href="http://lmgtfy.com/?q=How+to+play+chess" target="_blank">HERE</a> <br>If you are ready to play click <a href="chess.html" target="_blank">HERE</a></p>
+        </div>
         <div>
             <h3>Objective</h3>
             <p>The goal of the game is to checkmate the other king. This is done by putting the opponents king in a position to be captured (referred to as "in check"), when the opponents king has no means of escape it is checkmate and the game is over.</p>
@@ -110,9 +123,16 @@
                     <td>Can move 1 space forward and captures 1 space diagonally. Can optionally move 2 spaces forward ONLY when moved from its starting position.</td>
                 </tr>
             </table>
-            <p>Honestly this is a pretty high-level description and if you have never heard of chess you will need more than this but this is a programming class and not a chess class...</p>
-            <p>So if you need more info click <a href="http://lmgtfy.com/?q=How+to+play+chess" target="_blank">HERE</a></p>
-            <p>If you are ready to play click <a href="chess.html" target="_blank">HERE</a></p>
+            
+        </div>
+        </div>
+        <div id="userLogin" class="tabcontent">
+                Username:<br>
+                <input id="username" type="text" name="username"><br>
+                Password:<br>
+                <input id="password" type="password" name="password"><br>
+                <button onclick="userLogin()">Login</button>
+                <span id="loginResponse"></span>
         </div>
     </body>
 </html>

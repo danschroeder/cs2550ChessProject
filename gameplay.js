@@ -17,25 +17,27 @@ function showGameboard() {
         //console.log(tableCells[i]);
         i++;
     }
+    document.getElementById("userInfo").innerHTML = "Logged in user and timestamp: " + localStorage.getItem("cs2550timestamp");
 }
 
 function startNewGame() {
-    for (var x in whiteTeam){
-        var obj = whiteTeam[x];
-        obj["currentLocation"] = obj["startingLocation"];
-        obj["status"] = "active";
-    }
-    for (var x in blackTeam){
-        var obj = blackTeam[x];
-        obj["currentLocation"] = obj["startingLocation"];
-        obj["status"] = "active";
-    }
-    game.nextToMove = "white";
-    game.selectedPiece = null;
-    game.moveDescription = "";
-    game.check = false;
-    game.checkMate = false;
-    showGameboard();
+//    for (var x in whiteTeam) {
+//        var obj = whiteTeam[x];
+//        obj["currentLocation"] = obj["startingLocation"];
+//        obj["status"] = "active";
+//    }
+//    for (var x in blackTeam) {
+//        var obj = blackTeam[x];
+//        obj["currentLocation"] = obj["startingLocation"];
+//        obj["status"] = "active";
+//    }
+//    game.nextToMove = "white";
+//    game.selectedPiece = null;
+//    game.moveDescription = "";
+//    game.check = false;
+//    game.checkMate = false;
+//    showGameboard();
+location.reload();
 }
 
 function genGameboard(size) {
@@ -101,14 +103,12 @@ function clickedCell(cell) {
         console.log(piece[0]);
         selectPiece(piece[0]);
         console.log(game.selectedPiece);
-    }
-    else if (game.selectedPiece != null)
+    } else if (game.selectedPiece != null)
     {
         console.log();
-        if (game.nextToMove == "white" && isValidMove("white", game.selectedPiece.name)){
+        if (game.nextToMove == "white" && isValidMove("white", game.selectedPiece.name)) {
             game.nextToMove = "black";
-        } 
-        else if (game.nextToMove == "black" && isValidMove("black",game.selectedPiece.name)){
+        } else if (game.nextToMove == "black" && isValidMove("black", game.selectedPiece.name)) {
             game.nextToMove = "white";
         }
         document.getElementById(game.selectedPiece.currentLocation).innerHTML = "";
@@ -116,7 +116,7 @@ function clickedCell(cell) {
         placeGamepieces("currentLocation");
         game.selectedPiece = null;
         console.log(game.selectedPiece);
-        
+
 //        switch (piece.slice(4)) {
 //                case "pawn":
 //          
@@ -132,8 +132,8 @@ function isValidMove(team, piece) {
 }
 
 function selectPiece(id) {
-    console.log("selectPiece Fired");
-    console.log(id.alt);
+    //console.log("selectPiece Fired");
+    //console.log(id.alt);
     var team = id.alt.slice(0, 5);
     var piece = id.alt.slice(5);
     if (team == game.nextToMove)//validate that clicked piece is on the next team to move.
@@ -178,4 +178,58 @@ function genTeamStats(team) {
         //console.log(whiteTeam[x]);
     }
     return "<table><tr><th>Piece</th><th>Status</th><th>Location</th></tr>" + row + "</table>";
+}
+function showDiv(evt, cityName) {
+    // Declare all variables
+    var i, tabcontent, tablinks;
+
+    // Get all elements with class="tabcontent" and hide them
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+
+    // Show the current tab, and add an "active" class to the link that opened the tab
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+
+function userLogin() {
+    //console.log(document.getElementById('username').value);
+    //console.log(document.getElementById('password').value);
+    var usr = document.getElementById('username').value;
+    var pswd = document.getElementById('password').value;
+    var localRequest = new XMLHttpRequest();
+    localRequest.open("POST", "http://universe.tc.uvu.edu/cs2550/assignments/PasswordCheck/check.php", false);
+    localRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    //console.log("userName=" + usr + "&password=" + pswd);
+    localRequest.send("userName=" + usr + "&password=" + pswd);
+
+    var responseJSON = JSON.parse(localRequest.responseText);
+    //console.log(responseJSON);
+    document.getElementById('loginResponse').innerHTML = localRequest.responseText;
+    if (responseJSON["result"] == "invalid") {
+        document.getElementById('loginResponse').innerHTML = "ERROR: The server responded with " + localRequest.responseText + " Please doublecheck your username and password and try again.";
+    } else if (responseJSON["result"] == "valid") {
+        document.getElementById('loginResponse').innerHTML = "LOGIN SUCCESS: The server responded with " + localRequest.responseText;
+        //var loginInfo = responseJSON["userName"]+" "+responseJSON["timestamp"];
+        localStorage.setItem("cs2550timestamp", responseJSON["userName"] + " " + responseJSON["timestamp"])
+        window.location.hash = "";
+        window.location.pathname = "/CS2550assignment1/chess.html"
+
+        //console.log();
+    } else {
+        document.getElementById('loginResponse').innerHTML = "UNKNOWN ERROR: The server responded with " + localRequest.responseText;
+    }
+}
+
+function clearLocalStorage() {
+    localStorage.clear();
+    location.reload();
 }
