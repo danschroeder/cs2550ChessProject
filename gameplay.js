@@ -94,9 +94,9 @@ function placeGamepieces(loc) {//places both teams gamepieces on the board after
 
 
 function clickedCell(cell) {
-    console.log("clickedCell Fired");
-    console.log(cell);
-    console.log(game.selectedPiece);
+    //console.log("clickedCell Fired");
+    //console.log(cell);
+    //console.log(game.selectedPiece);
     if (game.selectedPiece == null && cell.innerHTML != "")//no piece selected and clickpoint contains a valid piece.
     {
         var piece = cell.getElementsByTagName("img");
@@ -105,17 +105,17 @@ function clickedCell(cell) {
         console.log(game.selectedPiece);
     } else if (game.selectedPiece != null)
     {
-        console.log();
-        if (game.nextToMove == "white" && isValidMove("white", game.selectedPiece.name)) {
+        //console.log();
+        if (game.nextToMove == "white" && isValidMove("white", getRow(cell.id),getColumn(cell.id))) {
             game.nextToMove = "black";
-        } else if (game.nextToMove == "black" && isValidMove("black", game.selectedPiece.name)) {
+        } else if (game.nextToMove == "black" && isValidMove("black", getRow(cell.id),getColumn(cell.id))) {
             game.nextToMove = "white";
         }
         document.getElementById(game.selectedPiece.currentLocation).innerHTML = "";
         game.selectedPiece.currentLocation = cell.id;
         placeGamepieces("currentLocation");
         game.selectedPiece = null;
-        console.log(game.selectedPiece);
+        //console.log(game.selectedPiece);
 
 //        switch (piece.slice(4)) {
 //                case "pawn":
@@ -126,7 +126,22 @@ function clickedCell(cell) {
     }
 }
 
-function isValidMove(team, piece) {
+function isValidMove(team, destRow, destColumn) {
+    var currRow = getRow(game.selectedPiece.currentLocation);
+    var currColumn = getColumn(game.selectedPiece.currentLocation);
+    var currentTotal = currRow+currColumn;
+    var destTotal = destRow + destColumn;
+    switch (game.selectedPiece){
+case "king": 
+if (currentTotal-1<destTotal<currentTotal+1){
+    
+}
+case "queen":
+case "rook":
+case "pawn":
+case "knight":
+case "bishop":
+    }
     return true;
 
 }
@@ -141,10 +156,13 @@ function selectPiece(id) {
         if (team == "white") {
             //console.log(whiteTeam[piece].currentRow);
             game.selectedPiece = whiteTeam[piece];
+       
         }
         if (team == "black") {
             game.selectedPiece = blackTeam[piece];
+            
         }
+        
     } else {
         window.alert("It's not this teams turn to move bro!");
     }
@@ -232,4 +250,10 @@ function userLogin() {
 function clearLocalStorage() {
     localStorage.clear();
     location.reload();
+}
+function getRow(id){
+    return id.slice(-8,-7);
+}
+function getColumn(id){
+    return id.slice(10);
 }
