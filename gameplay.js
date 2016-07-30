@@ -2,8 +2,32 @@
  Author     : danielschroeder
  UVID       : 10520096
  */
+window.addEventListener("load", addListeners, false);
+//.getElementById("gameboardDiv");
+//x.addEventListener("load", showGameboard, false);
+function addListeners() {
+    //console.log("addListeners fired");
+    var gameDiv = document.getElementById("gameboardDiv");
+    if (gameDiv != null) {//load listeners for the game page
+        showGameboard();
+        //console.log("add game listeners fired");
+        var userInfo = document.getElementById("userInfo").innerHTML = "Logged in user and timestamp: " + localStorage.getItem("cs2550timestamp");
+        document.getElementById("newGame").onclick = startNewGame;
+        document.getElementById("clearLocalStorage").onclick = clearLocalStorage;
+        
+    }
+    var gameDesign = document.getElementById("gameDesign");
+    if (gameDesign != null) {//load listeners for the design/rules page
+        showDiv(event, "gameRules");
+        document.getElementById("password").onkeyup = function(){if(event.keyCode == 13){userLogin();}};
+        //console.log("add rules listeners fired");
+    }
+}
+
+
 
 function showGameboard() {
+    //console.log("showGameboard fired");
     var gameDiv = document.getElementById("gameboardDiv");
     gameDiv.innerHTML = genGameboard(75);
     placeGamepieces("startingLocation");
@@ -17,27 +41,10 @@ function showGameboard() {
         //console.log(tableCells[i]);
         i++;
     }
-    document.getElementById("userInfo").innerHTML = "Logged in user and timestamp: " + localStorage.getItem("cs2550timestamp");
 }
 
 function startNewGame() {
-//    for (var x in whiteTeam) {
-//        var obj = whiteTeam[x];
-//        obj["currentLocation"] = obj["startingLocation"];
-//        obj["status"] = "active";
-//    }
-//    for (var x in blackTeam) {
-//        var obj = blackTeam[x];
-//        obj["currentLocation"] = obj["startingLocation"];
-//        obj["status"] = "active";
-//    }
-//    game.nextToMove = "white";
-//    game.selectedPiece = null;
-//    game.moveDescription = "";
-//    game.check = false;
-//    game.checkMate = false;
-//    showGameboard();
-location.reload();
+    location.reload();
 }
 
 function genGameboard(size) {
@@ -79,14 +86,30 @@ function placeGamepieces(loc) {//places both teams gamepieces on the board after
     for (var x in whiteTeam) {
         var obj = whiteTeam[x];
         var row = document.getElementById(obj[loc]);
-        row.innerHTML = obj["icon"];
+        var piece;
+        if (isNaN(obj.name.slice(-1))) {
+            piece = obj.name;
+            //console.log(obj.name + " is not a number" + obj.name.slice(-1));
+        } else {
+            piece = obj.name.slice(0, -1);
+            //console.log(obj.name + " is a number"+ obj.name.slice(-1));
+        }
+        row.innerHTML = "<img src=\"images/gamepieces/" + obj.team + "/" + piece + ".png\" alt=\"" + obj.team + obj.name + "\" >"; //obj["name"];
         //window.alert(row);
         //console.log(whiteTeam[x]);
     }
     for (var x in blackTeam) {
         var obj = blackTeam[x];
         var row = document.getElementById(obj[loc]);
-        row.innerHTML = obj["icon"];
+        var piece;
+        if (isNaN(obj.name.slice(-1))) {
+            piece = obj.name;
+            //console.log(obj.name + " is not a number" + obj.name.slice(-1));
+        } else {
+            piece = obj.name.slice(0, -1);
+            //console.log(obj.name + " is a number"+ obj.name.slice(-1));
+        }
+        row.innerHTML = "<img src=\"images/gamepieces/" + obj.team + "/" + piece + ".png\" alt=\"" + obj.team + obj.name + "\" >";
         //window.alert(row);
     }
     updateStats();
@@ -106,41 +129,34 @@ function clickedCell(cell) {
     } else if (game.selectedPiece != null)
     {
         //console.log();
-        if (game.nextToMove == "white" && isValidMove("white", getRow(cell.id),getColumn(cell.id))) {
+        if (game.nextToMove == "white" && isValidMove("white", getRow(cell.id), getColumn(cell.id))) {
             game.nextToMove = "black";
-        } else if (game.nextToMove == "black" && isValidMove("black", getRow(cell.id),getColumn(cell.id))) {
+        } else if (game.nextToMove == "black" && isValidMove("black", getRow(cell.id), getColumn(cell.id))) {
             game.nextToMove = "white";
         }
         document.getElementById(game.selectedPiece.currentLocation).innerHTML = "";
         game.selectedPiece.currentLocation = cell.id;
         placeGamepieces("currentLocation");
         game.selectedPiece = null;
-        //console.log(game.selectedPiece);
-
-//        switch (piece.slice(4)) {
-//                case "pawn":
-//          
-//                    break;
-//            }
-
     }
+    updateStats();
 }
 
 function isValidMove(team, destRow, destColumn) {
     var currRow = getRow(game.selectedPiece.currentLocation);
     var currColumn = getColumn(game.selectedPiece.currentLocation);
-    var currentTotal = currRow+currColumn;
+    var currentTotal = currRow + currColumn;
     var destTotal = destRow + destColumn;
-    switch (game.selectedPiece){
-case "king": 
-if (currentTotal-1<destTotal<currentTotal+1){
-    
-}
-case "queen":
-case "rook":
-case "pawn":
-case "knight":
-case "bishop":
+    switch (game.selectedPiece) {
+        case "king":
+            if (currentTotal - 1 < destTotal < currentTotal + 1) {
+
+            }
+        case "queen":
+        case "rook":
+        case "pawn":
+        case "knight":
+        case "bishop":
     }
     return true;
 
@@ -156,13 +172,13 @@ function selectPiece(id) {
         if (team == "white") {
             //console.log(whiteTeam[piece].currentRow);
             game.selectedPiece = whiteTeam[piece];
-       
+
         }
         if (team == "black") {
             game.selectedPiece = blackTeam[piece];
-            
+
         }
-        
+
     } else {
         window.alert("It's not this teams turn to move bro!");
     }
@@ -179,6 +195,10 @@ function genGameStats() {
     //console.log(obj["name"]);
     //var row = document.getElementById(obj[loc]);
     row += "<tr><td>Next to Move</td><td>" + game.nextToMove + "</td></tr><tr><td>Last Move</td><td>" + game.moveDescription + "</td></tr><tr><td>Check</td><td>" + game.check + "</td></tr><tr><td>Check Mate</td><td>" + game.checkMate + "</td></tr>";
+    if (game.selectedPiece != null) {
+        row += "<tr><td>Selected Piece</td><td>" + game.selectedPiece["name"] + "</td></tr>";
+    }
+    //"</td></tr><tr><td>Selected Piece</td><td>" + game.selectedPiece["name"] + 
     //window.alert(row);
     //console.log(whiteTeam[x]);
 
@@ -197,7 +217,7 @@ function genTeamStats(team) {
     }
     return "<table><tr><th>Piece</th><th>Status</th><th>Location</th></tr>" + row + "</table>";
 }
-function showDiv(evt, cityName) {
+function showDiv(evt, tabName) {
     // Declare all variables
     var i, tabcontent, tablinks;
 
@@ -214,7 +234,7 @@ function showDiv(evt, cityName) {
     }
 
     // Show the current tab, and add an "active" class to the link that opened the tab
-    document.getElementById(cityName).style.display = "block";
+    document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
 }
 
@@ -249,11 +269,11 @@ function userLogin() {
 
 function clearLocalStorage() {
     localStorage.clear();
-    location.reload();
+    document.getElementById("userInfo").innerHTML = "Logged in user and timestamp: " + localStorage.getItem("cs2550timestamp");;
 }
-function getRow(id){
-    return id.slice(-8,-7);
+function getRow(id) {
+    return id.slice(-8, -7);
 }
-function getColumn(id){
+function getColumn(id) {
     return id.slice(10);
 }

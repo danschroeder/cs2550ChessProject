@@ -18,6 +18,7 @@
             <li><a  class="tablinks" href="#design" onclick="showDiv(event, 'gameDesign')">Design</a></li>
             <li><a  class="tablinks" href="#rules" onclick="showDiv(event, 'gameRules')">Rules</a></li>
             <li><a  class="tablinks" href="#login" onclick="showDiv(event, 'userLogin')">Login</a></li>
+            <li><a  class="tablinks" href="checkpoint.html">Checkpoint</a></li>
         </ul>
         <div id="gameDesign" class="tabcontent">
         
@@ -130,8 +131,8 @@
                 Username:<br>
                 <input id="username" type="text" name="username"><br>
                 Password:<br>
-                <input id="password" type="password" name="password"><br>
-                <button onclick="userLogin()">Login</button>
+                <input id="password" type="password" name="password" o onsubmit="userLogin()"><br>
+                <input type="submit" onclick="userLogin()" value="Login">
                 <span id="loginResponse"></span>
         </div>
     </body>

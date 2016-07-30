@@ -13,14 +13,15 @@
         <script src="gameplay.js"></script>
     </head>
     
-    <body onload="showGameboard()">
+    <body>
         
         <div id = "blackTeam">black</div>
-         <div id = "whiteTeam">white</div>
+        <div id = "whiteTeam">white</div>
         <div id="gameboardDiv"></div> 
-        <div id ="gameStats">stats</div>
-        <button onclick="startNewGame()">Click here to start a new game.</button>
-        <button onclick="clearLocalStorage()">Click here to clear local storage.</button>
+        <button id = "newGame">Click here to start a new game.</button>
+        <button id = "clearLocalStorage">Click here to clear local storage.</button>
         <div id="userInfo"></div>
+        <div id ="gameStats">stats</div>
+       
     </body>
 </html>
