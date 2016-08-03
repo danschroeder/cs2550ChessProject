@@ -8,7 +8,7 @@ window.addEventListener("load", addListeners, false);
 function addListeners() {
     //console.log("addListeners fired");
     var gameDiv = document.getElementById("gameboardDiv");
-    if (gameDiv != null) {//load listeners for the game page
+    if (gameDiv !== null) {//load listeners for the game page
         showGameboard();
         //console.log("add game listeners fired");
         var userInfo = document.getElementById("userInfo").innerHTML = "Logged in user and timestamp: " + localStorage.getItem("cs2550timestamp");
@@ -132,9 +132,9 @@ function clickedCell(cell) {
     } else if (game.selectedPiece != null)
     {
         //console.log();
-        if (game.nextToMove == "white" && isValidMove("white", getRow(cell.id), getColumn(cell.id))) {
+        if (game.nextToMove === "white" && isValidMove("white", getRow(cell.id), getColumn(cell.id))) {
             game.nextToMove = "black";
-        } else if (game.nextToMove == "black" && isValidMove("black", getRow(cell.id), getColumn(cell.id))) {
+        } else if (game.nextToMove === "black" && isValidMove("black", getRow(cell.id), getColumn(cell.id))) {
             game.nextToMove = "white";
         }
         document.getElementById(game.selectedPiece.currentLocation).innerHTML = "";
@@ -255,14 +255,14 @@ function userLogin() {
     var responseJSON = JSON.parse(localRequest.responseText);
     //console.log(responseJSON);
     document.getElementById('loginResponse').innerHTML = localRequest.responseText;
-    if (responseJSON["result"] == "invalid") {
+    if (responseJSON["result"] === "invalid") {
         document.getElementById('loginResponse').innerHTML = "ERROR: The server responded with " + localRequest.responseText + " Please doublecheck your username and password and try again.";
-    } else if (responseJSON["result"] == "valid") {
+    } else if (responseJSON["result"] === "valid") {
         document.getElementById('loginResponse').innerHTML = "LOGIN SUCCESS: The server responded with " + localRequest.responseText;
         //var loginInfo = responseJSON["userName"]+" "+responseJSON["timestamp"];
-        localStorage.setItem("cs2550timestamp", responseJSON["userName"] + " " + responseJSON["timestamp"])
+        localStorage.setItem("cs2550timestamp", responseJSON["userName"] + " " + responseJSON["timestamp"]);
         window.location.hash = "";
-        window.location.pathname = "/CS2550assignment1/chess.html"
+        window.location.pathname = "/CS2550assignment1/chess.html";
 
         //console.log();
     } else {
