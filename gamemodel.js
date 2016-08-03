@@ -60,7 +60,6 @@ var game = {
     moveDescription: "",//describe move to display to a log that displays all moves. 
     check: false,
     checkMate: false
-    
 };
 
 function currentRow(loc){

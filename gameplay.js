@@ -13,6 +13,8 @@ function addListeners() {
         //console.log("add game listeners fired");
         var userInfo = document.getElementById("userInfo").innerHTML = "Logged in user and timestamp: " + localStorage.getItem("cs2550timestamp");
         document.getElementById("newGame").onclick = startNewGame;
+        document.getElementById("toJSON").onclick = saveGameData;
+        document.getElementById("loadJSON").onclick = loadGameData;
         document.getElementById("clearLocalStorage").onclick = clearLocalStorage;
         
     }
@@ -30,7 +32,7 @@ function showGameboard() {
     //console.log("showGameboard fired");
     var gameDiv = document.getElementById("gameboardDiv");
     gameDiv.innerHTML = genGameboard(75);
-    placeGamepieces("startingLocation");
+    placeGamepieces();
     var table = document.getElementById("gameboard");
     var tableCells = table.getElementsByTagName("td");
     var i = 0;
@@ -82,7 +84,8 @@ function genRow(rowCount, sizeOfSpaces) {//creates the gameboard rows and sets t
     return row;
 }
 
-function placeGamepieces(loc) {//places both teams gamepieces on the board after the board has loaded.
+function placeGamepieces() {//places both teams gamepieces on the board after the board has loaded.
+    var loc = "currentLocation";
     for (var x in whiteTeam) {
         var obj = whiteTeam[x];
         var row = document.getElementById(obj[loc]);
@@ -136,7 +139,7 @@ function clickedCell(cell) {
         }
         document.getElementById(game.selectedPiece.currentLocation).innerHTML = "";
         game.selectedPiece.currentLocation = cell.id;
-        placeGamepieces("currentLocation");
+        placeGamepieces();
         game.selectedPiece = null;
     }
     updateStats();
@@ -276,4 +279,21 @@ function getRow(id) {
 }
 function getColumn(id) {
     return id.slice(10);
+}
+
+function saveGameData(){
+    var gameData = "{\"game\":"+JSON.stringify(game)+",\"whiteTeam\":"+JSON.stringify(whiteTeam)+",\"blackTeam\":"+JSON.stringify(blackTeam)+"}";
+    console.log(gameData);
+}
+
+function loadGameData(){
+    var localRequest = new XMLHttpRequest();
+    localRequest.open("GET", "gamedata.txt",false);
+    localRequest.send(null);
+    //console.log(localRequest.responseText);
+    var responseJSON = JSON.parse(localRequest.responseText);
+    game = responseJSON["game"];
+    whiteTeam = responseJSON["whiteTeam"];
+    blackTeam = responseJSON["blackTeam"];
+    showGameboard();
 }

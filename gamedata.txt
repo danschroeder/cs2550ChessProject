@@ -1,0 +1,312 @@
+{
+    "game": {
+        "selectedPiece": {
+            "name": "pawn4",
+            "team": "black",
+            "status": "active",
+            "currentLocation": "row1column3",
+            "startingLocation": "row1column3",
+            "currentRow": "1",
+            "currentColumn": "3"
+        },
+        "nextToMove": "black",
+        "whiteMovesTotal": 0,
+        "blackMovesTotal": 0,
+        "moveDescription": "",
+        "check": false,
+        "checkMate": false
+    },
+    "whiteTeam": {
+        "king": {
+            "name": "king",
+            "team": "white",
+            "status": "active",
+            "currentLocation": "row7column4",
+            "startingLocation": "row7column4",
+            "currentRow": "7",
+            "currentColumn": "4"
+        },
+        "queen": {
+            "name": "queen",
+            "team": "white",
+            "status": "active",
+            "currentLocation": "row7column3",
+            "startingLocation": "row7column3",
+            "currentRow": "7",
+            "currentColumn": "3"
+        },
+        "rook1": {
+            "name": "rook1",
+            "team": "white",
+            "status": "active",
+            "currentLocation": "row7column0",
+            "startingLocation": "row7column0",
+            "currentRow": "7",
+            "currentColumn": "0"
+        },
+        "rook2": {
+            "name": "rook2",
+            "team": "white",
+            "status": "active",
+            "currentLocation": "row7column7",
+            "startingLocation": "row7column7",
+            "currentRow": "7",
+            "currentColumn": "7"
+        },
+        "bishop1": {
+            "name": "bishop1",
+            "team": "white",
+            "status": "active",
+            "currentLocation": "row7column2",
+            "startingLocation": "row7column2",
+            "currentRow": "7",
+            "currentColumn": "2"
+        },
+        "bishop2": {
+            "name": "bishop2",
+            "team": "white",
+            "status": "active",
+            "currentLocation": "row7column5",
+            "startingLocation": "row7column5",
+            "currentRow": "7",
+            "currentColumn": "5"
+        },
+        "knight1": {
+            "name": "knight1",
+            "team": "white",
+            "status": "active",
+            "currentLocation": "row7column1",
+            "startingLocation": "row7column1",
+            "currentRow": "7",
+            "currentColumn": "1"
+        },
+        "knight2": {
+            "name": "knight2",
+            "team": "white",
+            "status": "active",
+            "currentLocation": "row7column6",
+            "startingLocation": "row7column6",
+            "currentRow": "7",
+            "currentColumn": "6"
+        },
+        "pawn1": {
+            "name": "pawn1",
+            "team": "white",
+            "status": "active",
+            "currentLocation": "row6column0",
+            "startingLocation": "row6column0",
+            "currentRow": "6",
+            "currentColumn": "0"
+        },
+        "pawn2": {
+            "name": "pawn2",
+            "team": "white",
+            "status": "active",
+            "currentLocation": "row6column1",
+            "startingLocation": "row6column1",
+            "currentRow": "6",
+            "currentColumn": "1"
+        },
+        "pawn3": {
+            "name": "pawn3",
+            "team": "white",
+            "status": "active",
+            "currentLocation": "row6column2",
+            "startingLocation": "row6column2",
+            "currentRow": "6",
+            "currentColumn": "2"
+        },
+        "pawn4": {
+            "name": "pawn4",
+            "team": "white",
+            "status": "active",
+            "currentLocation": "row4column3",
+            "startingLocation": "row6column3",
+            "currentRow": "6",
+            "currentColumn": "3"
+        },
+        "pawn5": {
+            "name": "pawn5",
+            "team": "white",
+            "status": "active",
+            "currentLocation": "row6column4",
+            "startingLocation": "row6column4",
+            "currentRow": "6",
+            "currentColumn": "4"
+        },
+        "pawn6": {
+            "name": "pawn6",
+            "team": "white",
+            "status": "active",
+            "currentLocation": "row4column5",
+            "startingLocation": "row6column5",
+            "currentRow": "6",
+            "currentColumn": "5"
+        },
+        "pawn7": {
+            "name": "pawn7",
+            "team": "white",
+            "status": "active",
+            "currentLocation": "row6column6",
+            "startingLocation": "row6column6",
+            "currentRow": "6",
+            "currentColumn": "6"
+        },
+        "pawn8": {
+            "name": "pawn8",
+            "team": "white",
+            "status": "active",
+            "currentLocation": "row6column7",
+            "startingLocation": "row6column7",
+            "currentRow": "6",
+            "currentColumn": "7"
+        }
+    },
+    "blackTeam": {
+        "king": {
+            "name": "king",
+            "team": "black",
+            "status": "active",
+            "currentLocation": "row0column4",
+            "startingLocation": "row0column4",
+            "currentRow": "0",
+            "currentColumn": "4"
+        },
+        "queen": {
+            "name": "queen",
+            "team": "black",
+            "status": "active",
+            "currentLocation": "row0column3",
+            "startingLocation": "row0column3",
+            "currentRow": "0",
+            "currentColumn": "3"
+        },
+        "rook1": {
+            "name": "rook1",
+            "team": "black",
+            "status": "active",
+            "currentLocation": "row0column0",
+            "startingLocation": "row0column0",
+            "currentRow": "0",
+            "currentColumn": "0"
+        },
+        "rook2": {
+            "name": "rook2",
+            "team": "black",
+            "status": "active",
+            "currentLocation": "row0column7",
+            "startingLocation": "row0column7",
+            "currentRow": "0",
+            "currentColumn": "7"
+        },
+        "bishop1": {
+            "name": "bishop1",
+            "team": "black",
+            "status": "active",
+            "currentLocation": "row0column2",
+            "startingLocation": "row0column2",
+            "currentRow": "0",
+            "currentColumn": "2"
+        },
+        "bishop2": {
+            "name": "bishop2",
+            "team": "black",
+            "status": "active",
+            "currentLocation": "row0column5",
+            "startingLocation": "row0column5",
+            "currentRow": "0",
+            "currentColumn": "5"
+        },
+        "knight1": {
+            "name": "knight1",
+            "team": "black",
+            "status": "active",
+            "currentLocation": "row0column1",
+            "startingLocation": "row0column1",
+            "currentRow": "0",
+            "currentColumn": "1"
+        },
+        "knight2": {
+            "name": "knight2",
+            "team": "black",
+            "status": "active",
+            "currentLocation": "row2column5",
+            "startingLocation": "row0column6",
+            "currentRow": "0",
+            "currentColumn": "6"
+        },
+        "pawn1": {
+            "name": "pawn1",
+            "team": "black",
+            "status": "active",
+            "currentLocation": "row1column0",
+            "startingLocation": "row1column0",
+            "currentRow": "1",
+            "currentColumn": "0"
+        },
+        "pawn2": {
+            "name": "pawn2",
+            "team": "black",
+            "status": "active",
+            "currentLocation": "row1column1",
+            "startingLocation": "row1column1",
+            "currentRow": "1",
+            "currentColumn": "1"
+        },
+        "pawn3": {
+            "name": "pawn3",
+            "team": "black",
+            "status": "active",
+            "currentLocation": "row1column2",
+            "startingLocation": "row1column2",
+            "currentRow": "1",
+            "currentColumn": "2"
+        },
+        "pawn4": {
+            "name": "pawn4",
+            "team": "black",
+            "status": "active",
+            "currentLocation": "row1column3",
+            "startingLocation": "row1column3",
+            "currentRow": "1",
+            "currentColumn": "3"
+        },
+        "pawn5": {
+            "name": "pawn5",
+            "team": "black",
+            "status": "active",
+            "currentLocation": "row1column4",
+            "startingLocation": "row1column4",
+            "currentRow": "1",
+            "currentColumn": "4"
+        },
+        "pawn6": {
+            "name": "pawn6",
+            "team": "black",
+            "status": "active",
+            "currentLocation": "row1column5",
+            "startingLocation": "row1column5",
+            "currentRow": "1",
+            "currentColumn": "5"
+        },
+        "pawn7": {
+            "name": "pawn7",
+            "team": "black",
+            "status": "active",
+            "currentLocation": "row1column6",
+            "startingLocation": "row1column6",
+            "currentRow": "1",
+            "currentColumn": "6"
+        },
+        "pawn8": {
+            "name": "pawn8",
+            "team": "black",
+            "status": "active",
+            "currentLocation": "row1column7",
+            "startingLocation": "row1column7",
+            "currentRow": "1",
+            "currentColumn": "7"
+        }
+    }
+}
+
