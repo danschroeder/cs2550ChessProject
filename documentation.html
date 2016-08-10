@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Project Documentation</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>
+            <h1>Game Logic</h1>
+            <p>Here is a list of the logic flow</p>
+            <hr>
+            <ol>
+                <li>Player Selects a Valid Piece (done)</li>
+                <li>Player Selects a new location for said piece (done)</li>
+                <li>Move is validated based on team/piece (done)</li>
+                <li>Perform a capture if necessary (done)</li>
+                <li>Move the actual piece (done)</li>
+            </ol>
+            <hr>
+            <p>The core of the game logic is in my move validator function which works based on 3 boolean values:<br>1. Is the final destination going to be a capture?<br>2. Is the move legal based on the type of piece being moved?<br>3. Is the path clear for the pieces that need it to be clear?</p>
+            <p>At the end of the validator function I test for those values and then act based upon the results, for instance different code is executed based on wheather the capture value is true or not.</p>
+            <p>I went to the internet to try and find some ideas on how to implement my logic but honestly there really isn't much out there that would integrate with the way built my web app so I am happy to say that this is all 100% my code/ideas. </p>
+            <br>
+            <hr>
+            <table>
+                <tbody>
+                <tr>
+                <th>Piece</th>
+                <th>Algorithm Status</th>
+                </tr>
+                <tr>
+                    <td>King</td>
+                    <td>Done</td>
+                </tr>
+                <tr>
+                    <td>Queen</td>
+                    <td>Done</td>
+                </tr>
+                <tr>
+                    <td>Knight</td>
+                    <td>Done</td>
+                </tr>
+                <tr>
+                    <td>Bishop</td>
+                    <td>Done</td>
+                </tr>
+                <tr>
+                    <td>Rook</td>
+                    <td>Done</td>
+                </tr>
+                <tr>
+                    <td>Pawn</td>
+                    <td>Done</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <hr>
+        <div>
+            <h2>Special Considerations</h2>
+            <p>Every piece save for a Knight required a clear path for all moves</p>
+            <p>I nested my capture code at the tail end of the validator function that changes object properties as needed.</p>
+            <p>I added html5 audio element that is triggered to play when a team tries to make an invalid move, it's from the movie jurrasic park and I think it fits well.</p>
+            <p>I use html5 local storage as well to capture the user and timestamp for log in users.</p>
+            <p>I also use html5 local storage to save a current game and then load it again, you can either load the sample JSON or the user generated JSON (stored in localStorage).</p>
+        </div>
+    </body>
+</html>

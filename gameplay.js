@@ -14,7 +14,8 @@ function addListeners() {
         var userInfo = document.getElementById("userInfo").innerHTML = "Logged in user and timestamp: " + localStorage.getItem("cs2550timestamp");
         document.getElementById("newGame").onclick = startNewGame;
         document.getElementById("toJSON").onclick = saveGameData;
-        document.getElementById("loadJSON").onclick = loadGameData;
+        document.getElementById("loadJSON").onclick = loadSampleData;
+        document.getElementById("loadSavedJSON").onclick = loadSavedData;
         document.getElementById("clearLocalStorage").onclick = clearLocalStorage;
     }
     var gameDesign = document.getElementById("gameDesign");
@@ -91,36 +92,36 @@ function placeGamepieces() {//places both teams gamepieces on the board after th
     var loc = "currentLocation";
     for (var x in whiteTeam) {
         var obj = whiteTeam[x];
-        if (obj.status !== "captured"){
-        var row = document.getElementById(obj[loc]);
-        var piece;
-        if (isNaN(obj.name.slice(-1))) {
-            piece = obj.name;
-            //console.log(obj.name + " is not a number" + obj.name.slice(-1));
-        } else {
-            piece = obj.name.slice(0, -1);
-            //console.log(obj.name + " is a number"+ obj.name.slice(-1));
+        if (obj.status !== "captured") {
+            var row = document.getElementById(obj[loc]);
+            var piece;
+            if (isNaN(obj.name.slice(-1))) {
+                piece = obj.name;
+                //console.log(obj.name + " is not a number" + obj.name.slice(-1));
+            } else {
+                piece = obj.name.slice(0, -1);
+                //console.log(obj.name + " is a number"+ obj.name.slice(-1));
+            }
+            row.innerHTML = "<img src=\"images/gamepieces/" + obj.team + "/" + piece + ".png\" alt=\"" + obj.team + obj.name + "\" >"; //obj["name"];
+            //window.alert(row);
+            //console.log(whiteTeam[x]);
         }
-        row.innerHTML = "<img src=\"images/gamepieces/" + obj.team + "/" + piece + ".png\" alt=\"" + obj.team + obj.name + "\" >"; //obj["name"];
-        //window.alert(row);
-        //console.log(whiteTeam[x]);
-    }
     }
     for (var x in blackTeam) {
         var obj = blackTeam[x];
-        if (obj.status !== "captured"){
-        var row = document.getElementById(obj[loc]);
-        var piece;
-        if (isNaN(obj.name.slice(-1))) {
-            piece = obj.name;
-            //console.log(obj.name + " is not a number" + obj.name.slice(-1));
-        } else {
-            piece = obj.name.slice(0, -1);
-            //console.log(obj.name + " is a number"+ obj.name.slice(-1));
+        if (obj.status !== "captured") {
+            var row = document.getElementById(obj[loc]);
+            var piece;
+            if (isNaN(obj.name.slice(-1))) {
+                piece = obj.name;
+                //console.log(obj.name + " is not a number" + obj.name.slice(-1));
+            } else {
+                piece = obj.name.slice(0, -1);
+                //console.log(obj.name + " is a number"+ obj.name.slice(-1));
+            }
+            row.innerHTML = "<img src=\"images/gamepieces/" + obj.team + "/" + piece + ".png\" alt=\"" + obj.team + obj.name + "\" >";
+            //window.alert(row);
         }
-        row.innerHTML = "<img src=\"images/gamepieces/" + obj.team + "/" + piece + ".png\" alt=\"" + obj.team + obj.name + "\" >";
-        //window.alert(row);
-    }
     }
     updateStats();
 }
@@ -426,22 +427,24 @@ function isValidMove(team, destRow, destColumn) {
     if (legalMove && pathClear) {
         console.log("Legal move = " + legalMove + "   Clear path = " + pathClear);
         if (capture) {
-            var cell = document.getElementById("row"+destRow+"column"+destColumn);
+            var cell = document.getElementById("row" + destRow + "column" + destColumn);
             var piece = cell.getElementsByTagName("img");
             var captured = piece[0].alt.slice(5);
             cell.innerHTML = "";
-            if (team === "white"){
+            if (team === "white") {
                 blackTeam[captured].status = "captured";
-            } else if (team === "black"){
+            } else if (team === "black") {
                 whiteTeam[captured].status = "captured";
-            }    
-                //insert capture code here
+            }
+            //insert capture code here
             return true;//move is valid and piece is capture
         } else {
             return true;//move is valid but not a capture
         }
     } else {
         console.log("either ilLegal Move or not clear path");
+        var audio = document.getElementById("audio");
+        audio.play();
         return false;//move is either not legal or no clear path
     }
     //return true;//remove this when done
@@ -477,7 +480,7 @@ function genGameStats() {
     var row = "";
     //console.log(obj["name"]);
     //var row = document.getElementById(obj[loc]);
-    row += "<tr><td>Next to Move</td><td>" + game.nextToMove + "</td></tr><tr><td>Last Move</td><td>" + game.moveDescription + "</td></tr><tr><td>Check</td><td>" + game.check + "</td></tr><tr><td>Check Mate</td><td>" + game.checkMate + "</td></tr>";
+    row += "<tr><td>Next to Move</td><td>" + game.nextToMove;
     if (game.selectedPiece != null) {
         row += "<tr><td>Selected Piece</td><td>" + game.selectedPiece["name"] + "</td></tr>";
     }
@@ -550,7 +553,6 @@ function userLogin() {
 function clearLocalStorage() {
     localStorage.clear();
     document.getElementById("userInfo").innerHTML = "Logged in user and timestamp: " + localStorage.getItem("cs2550timestamp");
-    ;
 }
 function getRow(id) {
     var n = Number(id.slice(-8, -7));
@@ -563,10 +565,11 @@ function getColumn(id) {
 
 function saveGameData() {
     var gameData = "{\"game\":" + JSON.stringify(game) + ",\"whiteTeam\":" + JSON.stringify(whiteTeam) + ",\"blackTeam\":" + JSON.stringify(blackTeam) + "}";
+    localStorage.setItem("savedGame", gameData);
     console.log(gameData);
 }
 
-function loadGameData() {
+function loadSampleData() {
     var localRequest = new XMLHttpRequest();
     localRequest.open("GET", "gamedata.txt", false);
     localRequest.send(null);
@@ -576,4 +579,13 @@ function loadGameData() {
     whiteTeam = responseJSON["whiteTeam"];
     blackTeam = responseJSON["blackTeam"];
     showGameboard();
+}
+function loadSavedData() {
+    var savedJSON = JSON.parse(localStorage.getItem("savedGame"));
+    if (savedJSON !== null) {
+        game = savedJSON["game"];
+        whiteTeam = savedJSON["whiteTeam"];
+        blackTeam = savedJSON["blackTeam"];
+        showGameboard();
+    }
 }
